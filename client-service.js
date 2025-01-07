@@ -11,7 +11,7 @@
 
 const createProduct = async (jsonProduct) => {
     try {
-        const response = await fetch('http://localhost:3001/products', {
+        const response = await fetch('http://localhost:3001/products', {  // Aquí debes poner el segundo argumento dentro de fetch
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -23,6 +23,7 @@ const createProduct = async (jsonProduct) => {
         console.log('Error al crear producto:', error);
     }
 }
+
 
 const readProducts = () => fetch('http://localhost:3001/products').then(response => response.json());
 
