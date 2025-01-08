@@ -1,5 +1,5 @@
-html <!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,13 +12,42 @@ html <!DOCTYPE html>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- CSS -->
-
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
     <link rel="shortcut icon" href="./img/page-icon.png" type="image/x-icon" />
 </head>
+<body>
+    <header>
+        <section class="menu">
+            <nav class="menu__nav container">
+                <a class="menu__logo-box" href="./index.html">
+                    <img class="menu__logo-img" src="./img/Logo.svg" alt="alurageek">
+                </a>
+                <div class="menu__search-box">
+                    <input type="search" class="menu__search-input" placeholder="¿Qué deseas buscar?">
+                    <!-- Botón de búsqueda -->
+                    <button class="menu__search-icon">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+                <div class="menu__cart-login-box">
+                    <a class="menu__button" href="./index.html">Volver <i class="fa-solid fa-arrow-left"></i></a>
+                </div>
+            </nav>
+        </section>
+    </header>
 
-<script>
-    function imgErrorHTML(image) {
-        image.src = './img/default-img.png';
-    }
-</script>
+    <main class="main__eshop">
+        <section class="all-products category container">
+            <div class="category__title-box">
+                <h2 class="category__title">Resultados de la búsqueda</h2>
+            </div>
+            <div class="all-products__stock">
+                <!-- Aquí se mostrarán los productos dinámicamente -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Enlace al archivo JavaScript -->
+    <script src="./searchButton.js"></script>
+</body>
+</html>
