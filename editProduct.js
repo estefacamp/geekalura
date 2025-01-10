@@ -2,99 +2,60 @@
  * Copyright (c) 2025 Your Company Name
  * All rights reserved.
  */
-
-
-import { clientService } from "./client-service.js";
-
-/*const url = new URL(window.location);
-const id = url.searchParams.get('id')
-const form = document.querySelector('.add-product__form');
-
-const getProduct = async (id) => {
-    try {
-        const arrProduct = await clientService.readProduct(id);
-        createCard(arrProduct)
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-const createCard = ({name, category, url, price, description}) => {
-    const inputName = document.querySelector('#product-name');
-    const inputcategory = document.querySelector('#category');
-    const inputUrl = document.querySelector('#img');
-    const inputPrice = document.querySelector('#price');
-    const inputDescription = document.querySelector('#description');
-    inputUrl.value = url;
-    inputcategory.value = category;
-    inputName.value = name;
-    inputPrice.value = price;
-    inputDescription.value = description;
-
-    if (inputName) inputName.value = name;
-    if (inputCategory) inputCategory.value = category;
-    if (inputUrl) inputUrl.value = url;
-    if (inputPrice) inputPrice.value = price;
-    if (inputDescription) inputDescription.value = description;
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('edit-product-form');
     
-};
-    
- 
+    // Función para obtener los valores del formulario y enviarlos a la API
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
+        
+        // Obtener los valores de los campos del formulario
+        const productName = document.getElementById('product-name').value;
+        const category = document.getElementById('category').value;
+        const imgUrl = document.getElementById('img').value;
+        const price = document.getElementById('price').value;
+        const description = document.getElementById('description').value;
 
-const editProduct = async (e) => {
-    e.preventDefault();
-    const name = document.querySelector('#product-name').value;
-    const category = document.querySelector('#category').value;
-    const url = document.querySelector('#img').value;
-    const price = document.querySelector('#price').value;
-    const description = document.querySelector('#description').value;
-    const jsonProduct = JSON.stringify({name, category, url, price, description});
-    try {
-        await clientService.updateProduct(id, jsonProduct);
-        window.location.href = './completed.html'
-    } catch (error) {
-        console.log(error)
-    }
-}
+        // Validar que todos los campos estén completos
+        if (!productName || !category || !imgUrl || !price || !description) {
+            alert('Por favor, complete todos los campos antes de enviar el formulario.');
+            return;
+        }
 
-getProduct(id);
-form.addEventListener('submit', editProduct);*/
+        // Crear un objeto con los datos del producto
+        const productData = {
+            name: productName,
+            category: category,
+            url: imgUrl,
+            price: price,
+            description: description
+        };
 
-const getProduct = async (id) => {
-    try {
-        // Obtiene el producto mediante la API
-        const arrProduct = await clientService.readProduct(id);
-        createCard(arrProduct);
-    } catch (error) {
-        console.log(error);
-    }
-};
+        try {
+            // Aquí hacemos la petición PUT a la API para actualizar el producto
+            const productId = new URLSearchParams(window.location.search).get('id');
+            if (!productId) {
+                alert('No se encontró el ID del producto en la URL.');
+                return;
+            }
 
-const createCard = ({ name, category, url, price, description }) => {
-    const inputName = document.querySelector('#product-name');
-    const inputCategory = document.querySelector('#category');
-    const inputUrl = document.querySelector('#img');
-    const inputPrice = document.querySelector('#price');
-    const inputDescription = document.querySelector('#description');
-    const productImage = document.querySelector('.product img');  // Aquí es donde asignamos la imagen
+            const response = await fetch(`http://localhost:3001/products/${productId}`, {
+                method: 'PUT', // Método PUT para actualizar el producto
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(productData)
+            });
 
-    // Asigna los valores a los campos
-    inputUrl.value = url;
-    inputCategory.value = category;
-    inputName.value = name;
-    inputPrice.value = price;
-    inputDescription.value = description;
-
-    if (inputName) inputName.value = name;
-    if (inputCategory) inputCategory.value = category;
-    if (inputUrl) inputUrl.value = url;
-    if (inputPrice) inputPrice.value = price;
-    if (inputDescription) inputDescription.value = description;
-
-    // Asigna la imagen principal en el detalle
-    if (productImage) {
-        productImage.src = url;  // Aquí es donde se cambia la imagen
-    }
-};
-
-getProduct(id);
+            if (response.ok) {
+                alert('Producto actualizado correctamente en la base de datos.');
+                window.location.href = './admin.html'; // Redirige a la página de administración
+            } else {
+                alert('Hubo un error al intentar actualizar el producto. Intente nuevamente.');
+            }
+        } catch (error) {
+            console.error('Error al realizar la solicitud:', error);
+            alert('Error en la conexión con el servidor. Por favor, intente más tarde.');
+        }
+    });
+});

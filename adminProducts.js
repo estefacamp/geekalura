@@ -2,119 +2,93 @@
  * Copyright (c) 2025 Your Company Name
  * All rights reserved.
  */
-// URL de la API
-const apiUrl = http:('http://localhost:3001/products');  // Ajusta la URL según tu API
 
-// Función para obtener productos desde la API
-function fetchProducts() {
-    fetch('http://localhost:3001/products')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error en la respuesta de la API');
-            }
-            return response.json(); // Convertimos la respuesta en formato JSON
-        })
-        .then(data => {
-            console.log('Productos:', data);
-            renderProducts(data); // Llamada a la función para renderizar productos
-        })
-        .catch(error => {
-            console.error('Error al obtener los productos:', error);
-            alert('Hubo un error al obtener los productos. Por favor, inténtelo nuevamente.');
-        });
-}
+// URL de la API donde se obtienen los productos
+const apiUrl = 'http://localhost:3001/products';
 
-// Función para renderizar productos en el HTML
-function renderProducts(products) {
-    const productList = document.getElementById('product-list');
-    productList.innerHTML = ''; // Limpiar contenido previo de la lista de productos
+// Importa el servicio del cliente
+import { clientService } from "./client-service.js"; 
 
-    products.forEach(product => {
-        const productElement = document.createElement('div');
-        productElement.classList.add('product'); // Añadir una clase para estilo si se necesita
+const productsBox = document.querySelector('.all-products__stock');
 
-        // Aquí puedes personalizar cómo mostrar los productos
-        productElement.innerHTML = `
-            <h2>${product.name}</h2>
-            <p>Precio: $${product.price}</p>
-            <p>${product.description}</p>
-            <button onclick="editProduct(${product.id})">Editar</button>
-            <button onclick="deleteProduct(${product.id})">Eliminar</button>
-        `;
-
-        productList.appendChild(productElement);
-    });
-}
-
-// Función para manejar la edición de un producto
-function editProduct(productId) {
-    // Puedes abrir un formulario o realizar una solicitud PUT para editar el producto
-    console.log('Editar producto con ID:', productId);
-    // Lógica de edición aquí (ej. abrir un modal o página para editar)
-}
-
-// Función para manejar la eliminación de un producto
-function deleteProduct(productId) {
-    const confirmDelete = confirm('¿Estás seguro de que deseas eliminar este producto?');
-    if (confirmDelete) {
-        fetch(`${apiUrl}/${productId}`, {
-            method: 'DELETE', // Solicitud DELETE para eliminar el producto
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('No se pudo eliminar el producto');
-                }
-                console.log('Producto eliminado');
-                alert('Producto eliminado con éxito.');
-                fetchProducts(); // Refrescar la lista después de la eliminación
-            })
-            .catch(error => {
-                console.error('Error al eliminar el producto:', error);
-                alert('Hubo un error al eliminar el producto.');
-            });
+// Función para cargar y mostrar los productos
+const renderProducts = async () => {
+    try {
+        const dataProducts = await clientService.readProducts();
+        showProducts(dataProducts);
+    } catch (error) {
+        console.error('Error al cargar los productos:', error);
     }
-}
+};
 
-// Función para agregar un nuevo producto
-function addProduct(productData) {
-    fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(productData), // Datos del nuevo producto
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Nuevo producto agregado:', data);
-            alert('Producto agregado con éxito.');
-            fetchProducts(); // Refrescar la lista después de agregar un producto
-        })
-        .catch(error => {
-            console.error('Error al agregar el producto:', error);
-            alert('Hubo un error al agregar el producto.');
+// Mostrar los productos en el DOM
+const showProducts = (arrProducts) => {
+    console.log('Productos a mostrar:', arrProducts);
+    if (arrProducts.length > 0) {
+        productsBox.innerHTML = ''; // Limpiar el contenedor de productos
+        arrProducts.forEach(product => {
+            const card = createCard(product);
+            console.log('Tarjeta creada:', card);
+            productsBox.appendChild(card); // Añadir la tarjeta al DOM
         });
-}
+    } else {
+        console.warn('No hay productos para mostrar');
+        productsBox.innerHTML = '<p>No hay productos disponibles.</p>';
+    }
+};
 
-// Función para manejar la creación de un nuevo producto a través de un formulario
-function handleAddProductForm(event) {
-    event.preventDefault(); // Prevenir el comportamiento por defecto del formulario
+// Crear una tarjeta de producto
+const createCard = (product) => {
+    const card = document.createElement('div');
+    card.classList.add('category__product');
+    card.innerHTML = createContentCard(product);
+    
+    // Agregar el evento de eliminación
+    const buttonDelete = card.querySelector('.category__product-delete');
+    buttonDelete.addEventListener('click', deleteProduct);
+    
+    return card;
+};
 
-    // Obtener datos del formulario
-    const productData = {
-        name: document.getElementById('product-name').value,
-        price: document.getElementById('product-price').value,
-        description: document.getElementById('product-description').value,
-    };
+// Crear el contenido HTML para la tarjeta de producto
+const createContentCard = ({id, name, category, url, price}) => {
+    return `
+        <img class="category__img" src="${url}" alt="${category}" onerror="imgErrorHTML(this)">
+        <div class="category__text">        
+            <p class="category__category">${category}</p>
+            <h4 class="category__name">${name}</h4>
+            <p class="category__price">$ ${price}</p>
+            <div class="category__actions-box">
+                <a class="category__product-edit" href="edit-product.html?id=${id}">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </a>
+                <button id="${id}" class="category__product-delete">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
+            </div>
+        </div>
+    `;
+};
 
-    // Llamar a la función para agregar el producto
-    addProduct(productData);
-}
+// Función para eliminar un producto
+const deleteProduct = async (e) => {
+    const id = e.currentTarget.id;
+    const card = e.currentTarget.closest('.category__product'); // Encuentra la tarjeta a eliminar
 
-// Event listener para el formulario de agregar producto
-document.getElementById('add-product-form').addEventListener('submit', handleAddProductForm);
+    try {
+        const response = await fetch(`${apiUrl}/${id}`, { method: 'DELETE' });
+        if (response.ok) {
+            card.remove();
+            alert('Producto eliminado correctamente.');
+            console.log(`Producto con ID ${id} eliminado.`);
+        } else {
+            alert('No se pudo eliminar el producto.');
+        }
+    } catch (error) {
+        alert('Error al intentar eliminar el producto.');
+        console.error('Error en la solicitud DELETE:', error);
+    }
+};
 
-// Cargar productos cuando se carga la página
-document.addEventListener('DOMContentLoaded', () => {
-    fetchProducts(); // Llamar la función para obtener los productos
-});
+// Cargar los productos cuando la página esté lista
+document.addEventListener('DOMContentLoaded', renderProducts);

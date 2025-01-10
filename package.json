@@ -1,7 +1,6 @@
 {
-  "type": "module"
-}
- {"name": "alurageek",
+  "type": "module",
+  "name": "alurageek",
   "version": "1.0.0",
   "main": "conexion-api.js",
   "scripts": {

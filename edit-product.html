@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,11 +34,10 @@
     </header>
 
     <main>
-        
         <section class="add-product">
             <div class="add-product__container container">
                 <h1 class="add-product__form-title">Editar producto</h1>
-                <form class="add-product__form">
+                <form class="add-product__form" id="edit-product-form">
                     <label class="add-product__form-label" for="product-name" >
                         <p class="add-product__form-field">Nombre del producto:</p>
                         <input class="add-product__form-input form-input" type="text" id="product-name" name="product-name" autocomplete="off" required>
@@ -68,41 +67,41 @@
                 </form>
             </div>
         </section>
-
     </main>
- <!--FOOOOOOOOOOTEEEEEEEEEEEEEEEEEEEEEEEERRRRRRRRRRRRRRRRRRRRRRRRRRRR--> 
- <footer class="footer">
-    <div class="footer__container container">
-        <img class="footer__logo-img" src="./img/Logo.svg" alt="alurageek">
-        <ul class="footer__list">
-            <li class="footer__item-list"><a href="#">Quiénes somos</a></li>
-            <li class="footer__item-list"><a href="#">Política de privacidad</a></li>
-            <li class="footer__item-list"><a href="#">Nuestras tiendas</a></li>
-        </ul>
-        <div class="footer__form-box">
-            <h3 class="footer__form-title">Consultas</h3>
-            <form class="footer__form" action="./message-sent.html">
-                <label class="footer__form-label" for="name" >
-                    <p class="footer__form-field">Nombre:</p>
-                    <input class="footer__form-input form-input" type="text" id="name" name="name" autocomplete="off" required maxlength="40">
-                    <span class="input-message-error">Este campo no es válido</span>
-                </label>
-                <label class="footer__form-label" for="message">
-                    <p class="footer__form-field">Mensaje:</p>
-                    <textarea class="footer__form-input form-input" type="text" id="message" name="message" rows="5" autocomplete="off" required maxlength="120"></textarea>
-                    <span class="input-message-error">Este campo no es válido</span>
-                </label>
-                <button class="footer__form-submit" type="submit" id="submit">Enviar mensaje</button>
-            </form>
+
+    <footer class="footer">
+        <div class="footer__container container">
+            <img class="footer__logo-img" src="./img/Logo.svg" alt="alurageek">
+            <ul class="footer__list">
+                <li class="footer__item-list"><a href="#">Quiénes somos</a></li>
+                <li class="footer__item-list"><a href="#">Política de privacidad</a></li>
+                <li class="footer__item-list"><a href="#">Nuestras tiendas</a></li>
+            </ul>
+            <div class="footer__form-box">
+                <h3 class="footer__form-title">Consultas</h3>
+                <form class="footer__form" action="./message-sent.html">
+                    <label class="footer__form-label" for="name" >
+                        <p class="footer__form-field">Nombre:</p>
+                        <input class="footer__form-input form-input" type="text" id="name" name="name" autocomplete="off" required maxlength="40">
+                        <span class="input-message-error">Este campo no es válido</span>
+                    </label>
+                    <label class="footer__form-label" for="message">
+                        <p class="footer__form-field">Mensaje:</p>
+                        <textarea class="footer__form-input form-input" type="text" id="message" name="message" rows="5" autocomplete="off" required maxlength="120"></textarea>
+                        <span class="input-message-error">Este campo no es válido</span>
+                    </label>
+                    <button class="footer__form-submit" type="submit" id="submit">Enviar mensaje</button>
+                </form>
+            </div>
         </div>
-    </div>
-    <div class="footer__developed">
-        <a href="# githublink" target="_blank">Developed by EJC </a>
-    </div>
-</footer>
-<script src="/indexProduct.js" type="module"></script>
-<script src="/searchButton.js"></script>
-<script src="/forms.js"></script>
-<script src="/touchSlider.js"></script>
+        <div class="footer__developed">
+            <a href="#githublink" target="_blank">Developed by EJC </a>
+        </div>
+    </footer>
+
+    <script src="indexProduct.js" type="module"></script>
+    <script src="searchButton.js"></script>
+    <script src="forms.js"></script>
+    <script src="touchSlider.js"></script>
 </body>
 </html>
