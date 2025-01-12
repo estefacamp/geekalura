@@ -14,6 +14,11 @@ Para ello están pidiendo nuestra ayuda como desarrolladores, el e-commerce debe
 
 Es muy importante que el sitio sea adaptable para que los clientes puedan comprar fácilmente a través de dispositivos móviles.
 
+-------
+
+consigna:
+Aplicarás conceptos fundamentales como manipulación del DOM, entenderás como funciona la web con el protocolo HTTP, el uso de los métodos GET, POST y DELETE.
+ El manejo de promesas, consumo de API's y la realización de solicitudes a servidores (json-server). La programación asíncrona, junto con otros conceptos avanzados de JavaScript.
 -----
 ## 🔒 Login
 Las credenciales para loguearse en la administración son:
@@ -23,3 +28,4 @@ password: alura123
 -----
 ## 👾 Link a website
 
+https://github.com/estefacamp

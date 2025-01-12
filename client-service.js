@@ -40,18 +40,12 @@ const readProduct = (id) => fetch(`http://localhost:3001/products/${id}`)
         alert('No se pudo obtener los detalles del producto.');
     });
 
-    const deleteProduct = async (e) => {
-        const id = e.currentTarget.id;
-        const card = e.currentTarget.parentNode.parentNode.parentNode; // La tarjeta que contiene el producto
-        try {
-            await clientService.deleteProduct(id); // Llama a la API para eliminar
-            card.remove(); // Elimina la tarjeta del DOM
-            console.log(`Producto con ID ${id} eliminado del DOM`);
-        } catch (error) {
-            console.error('Error al eliminar el producto:', error);
-        }
-    };
-    
+const deleteProduct = (id) => {
+    return fetch(`http://localhost:3001/products/${id}`, {
+        method: 'DELETE'
+    });
+};
+
 const updateProduct = (id, jsonProduct) => {
     return fetch(`http://localhost:3001/products/${id}`, {
         method: 'PUT',

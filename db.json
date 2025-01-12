@@ -1,27 +1,11 @@
 {
   "products": [
     {
-      "id": "fc8b0131-6520-489d-a0c2-dfcccd7f0ag1",
-      "name": "Mario Kart 8 Deluxe",
-      "category": "Juegos",
-      "price": "15499",
-      "url": "./img/game-1.jpg",
-      "description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere accusantium ullam animi labore aliquid fugit dicta, id ad natus deserunt impedit magni veritatis, fugiat necessitatibus quo commodi ea blanditiis nostrum! Recusandae repudiandae obcaecati asperiores exercitationem ducimus nesciunt quo. Voluptas hic facere officia magnam nulla voluptatem recusandae tempora sed incidunt dolor!"
-    },
-    {
       "id": "fc8b0131-6520-489d-a0c2-dfcccd7f0ag2",
       "name": "The Legend of Zelda",
       "category": "Juegos",
       "price": "15499",
       "url": "./img/game-2.jpg",
-      "description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere accusantium ullam animi labore aliquid fugit dicta, id ad natus deserunt impedit magni veritatis, fugiat necessitatibus quo commodi ea blanditiis nostrum! Recusandae repudiandae obcaecati asperiores exercitationem ducimus nesciunt quo. Voluptas hic facere officia magnam nulla voluptatem recusandae tempora sed incidunt dolor!"
-    },
-    {
-      "id": "fc8b0131-6520-489d-a0c2-dfcccd7f0ag3",
-      "name": "Pokémon: Let’s Go",
-      "category": "Juegos",
-      "price": "15499",
-      "url": "./img/game-3.jpg",
       "description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere accusantium ullam animi labore aliquid fugit dicta, id ad natus deserunt impedit magni veritatis, fugiat necessitatibus quo commodi ea blanditiis nostrum! Recusandae repudiandae obcaecati asperiores exercitationem ducimus nesciunt quo. Voluptas hic facere officia magnam nulla voluptatem recusandae tempora sed incidunt dolor!"
     },
     {
@@ -57,12 +41,12 @@
       "description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere accusantium ullam animi labore aliquid fugit dicta, id ad natus deserunt impedit magni veritatis, fugiat necessitatibus quo commodi ea blanditiis nostrum! Recusandae repudiandae obcaecati asperiores exercitationem ducimus nesciunt quo. Voluptas hic facere officia magnam nulla voluptatem recusandae tempora sed incidunt dolor!"
     },
     {
-      "id": "fc8b0131-6520-489d-a0c2-dfcccd7f0ac3",
       "name": "Nintendo Switch - Smash Bros",
       "category": "Consolas",
-      "price": "15999",
+      "price": "566666",
+      "description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere accusantium ullam animi labore aliquid fugit dicta, id ad natus deserunt impedit magni veritatis, fugiat necessitatibus quo commodi ea blanditiis nostrum! Recusandae repudiandae obcaecati asperiores exercitationem ducimus nesciunt quo. Voluptas hic facere officia magnam nulla voluptatem recusandae tempora sed incidunt dolor!",
       "url": "./img/consolas-3.png",
-      "description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere accusantium ullam animi labore aliquid fugit dicta, id ad natus deserunt impedit magni veritatis, fugiat necessitatibus quo commodi ea blanditiis nostrum! Recusandae repudiandae obcaecati asperiores exercitationem ducimus nesciunt quo. Voluptas hic facere officia magnam nulla voluptatem recusandae tempora sed incidunt dolor!"
+      "id": "fc8b0131-6520-489d-a0c2-dfcccd7f0ac3"
     },
     {
       "id": "fc8b0131-6520-489d-a0c2-dfcccd7f0ac4",
@@ -73,20 +57,12 @@
       "description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere accusantium ullam animi labore aliquid fugit dicta, id ad natus deserunt impedit magni veritatis, fugiat necessitatibus quo commodi ea blanditiis nostrum! Recusandae repudiandae obcaecati asperiores exercitationem ducimus nesciunt quo. Voluptas hic facere officia magnam nulla voluptatem recusandae tempora sed incidunt dolor!"
     },
     {
-      "id": "fc8b0131-6520-489d-a0c2-dfcccd7f0ac5",
       "name": "Nintendo Switch OLED",
       "category": "Consolas",
       "price": "15999",
-      "url": "./img/consolas-5.png",
-      "description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere accusantium ullam animi labore aliquid fugit dicta, id ad natus deserunt impedit magni veritatis, fugiat necessitatibus quo commodi ea blanditiis nostrum! Recusandae repudiandae obcaecati asperiores exercitationem ducimus nesciunt quo. Voluptas hic facere officia magnam nulla voluptatem recusandae tempora sed incidunt dolor!"
-    },
-    {
-      "id": "fc8b0131-6520-489d-a0c2-dfcccd7f0ac6",
-      "name": "Nintendo Switch OLED",
-      "category": "Consolas",
-      "price": "15999",
+      "description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere accusantium ullam animi labore aliquid fugit dicta, id ad natus deserunt impedit magni veritatis, fugiat necessitatibus quo commodi ea blanditiis nostrum! Recusandae repudiandae obcaecati asperiores exercitationem ducimus nesciunt quo. Voluptas hic facere officia magnam nulla voluptatem recusandae tempora sed incidunt dolor!",
       "url": "./img/consolas-6.png",
-      "description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere accusantium ullam animi labore aliquid fugit dicta, id ad natus deserunt impedit magni veritatis, fugiat necessitatibus quo commodi ea blanditiis nostrum! Recusandae repudiandae obcaecati asperiores exercitationem ducimus nesciunt quo. Voluptas hic facere officia magnam nulla voluptatem recusandae tempora sed incidunt dolor!"
+      "id": "fc8b0131-6520-489d-a0c2-dfcccd7f0ac6"
     },
     {
       "id": "fc8b0131-6520-489d-a0c2-dfcccd7f0ac7",
@@ -167,6 +143,22 @@
       "price": "15999",
       "url": "./img/amiibo-8.png",
       "description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere accusantium ullam animi labore aliquid fugit dicta, id ad natus deserunt impedit magni veritatis, fugiat necessitatibus quo commodi ea blanditiis nostrum! Recusandae repudiandae obcaecati asperiores exercitationem ducimus nesciunt quo. Voluptas hic facere officia magnam nulla voluptatem recusandae tempora sed incidunt dolor!"
+    },
+    {
+      "id": "5f68",
+      "name": "test",
+      "category": "jeugo",
+      "img": "./img/game-2.jpg",
+      "price": 546546564,
+      "description": "sadsadasdasd"
+    },
+    {
+      "id": "66c2",
+      "name": "test",
+      "category": "juego",
+      "img": "./img/game-2.jpg",
+      "price": 56465456,
+      "description": "sadasdfd2sf3sdf32sd132f312d"
     }
   ]
 }

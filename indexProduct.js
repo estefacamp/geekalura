@@ -10,41 +10,77 @@ const categoryNames = ['Juegos', 'Consolas', 'Amiibo'];
 const renderProducts = async () => {
     try {
         const dataProducts = await clientService.readProducts();
-        filterProducts(dataProducts);
+        if (!dataProducts || dataProducts.length === 0) {
+            console.warn("No se encontraron productos en la API.");
+            return;
+        }
+        processCategories(dataProducts);
+        console.log("Productos cargados correctamente.");
     } catch (error) {
-        console.log(error);
+        console.error("Error al obtener los productos de la API:", error);
     }
 };
 
-const filterProducts = (dataProducts) => {
+const processCategories = (dataProducts) => {
+    const main = document.querySelector('main');
+    if (!main) {
+        console.error("No se encontró el elemento <main> en el DOM.");
+        return;
+    }
+
     categoryNames.forEach((category, index) => {
-        const categoryProducts = dataProducts.filter(product => product.category === category);
-        if (categoryProducts.length > 0) {
-            const main = document.querySelector('main');
-            const section = main.children[index];
-            writeTitle(section, category);  // Esto actualizará el título de la categoría
-            showProducts(categoryProducts, section);
-        } else {
-            console.log(`"${category}" has no products`);
+        try {
+            processCategory(dataProducts, category, index, main);
+        } catch (error) {
+            console.error(`Error procesando la categoría "${category}":`, error);
         }
     });
 };
 
-const writeTitle = (section, categoryName) => {
-    const title = section.querySelector('.category__title');
-    if (title) {
-        title.textContent = categoryName;  // Actualiza el texto del título
-    } else {
-        console.error('No se encontró el título de la categoría');
+const processCategory = (dataProducts, category, index, main) => {
+    let section = main.children[index];
+
+    if (!section) {
+        console.warn(`No se encontró la sección para la categoría "${category}". Creándola dinámicamente.`);
+        section = createCategorySection(category, main);
     }
+
+    const categoryProducts = dataProducts.filter(product => product.category === category);
+    if (categoryProducts.length === 0) {
+        console.log(`"${category}" no tiene productos disponibles.`);
+        return;
+    }
+
+    writeTitle(section, category);
+    showProducts(categoryProducts, section);
+};
+
+const writeTitle = (section, categoryName) => {
+    const title = section.querySelector('.category__name');
+    if (!title) {
+        console.warn(`No se encontró el título de la categoría "${categoryName}".`);
+        return;
+    }
+    title.textContent = `Productos de ${categoryName}`;
 };
 
 const showProducts = (arrProducts, section) => {
     const categoryCarousel = section.querySelector('.category__carousel');
-    categoryCarousel.innerHTML = '';
+    if (!categoryCarousel) {
+        console.warn('No se encontró el elemento .category__carousel dentro de la sección proporcionada.');
+        console.warn('Sección:', section);
+        return;
+    }
+
+    categoryCarousel.innerHTML = ''; // Limpiar contenido existente
+
     arrProducts.forEach(product => {
-        const card = createCard(product);
-        categoryCarousel.appendChild(card);
+        try {
+            const card = createCard(product);
+            categoryCarousel.appendChild(card);
+        } catch (error) {
+            console.error('Error al crear o agregar un producto:', error);
+        }
     });
 };
 
@@ -59,9 +95,8 @@ const createCard = (product) => {
 
 const createContentCard = (product) => {
     const { name, category, url, price } = product;
-    console.log('Producto:', name, 'URL de la imagen:', url); 
+    const imageUrl = url || './img/default-img.png';
 
-    const imageUrl = url || './img/default-img.png';  
     return `<img class="category__img" src="${imageUrl}" alt="${category}" onerror="imgErrorHTML(this)" draggable="false">
             <div class="category__text">
                 <p class="category__category">${category}</p>        
@@ -71,46 +106,24 @@ const createContentCard = (product) => {
             </div>`;
 };
 
-const writeProductDetails = (data) => {
-    const titleElement = document.querySelector(".product__name");
-    const categoryElement = document.querySelector(".product__category");
-
-    if (titleElement && categoryElement) {
-        titleElement.textContent = data.name;
-        categoryElement.textContent = `Categoría: ${data.category}`;
-    } else {
-        console.error("Error: No se encontraron los elementos .product__name o .product__category");
-    }
-};
-
-renderProducts();
-
-const getProductDetails = async () => {
-    try {
-        const urlParams = new URLSearchParams(window.location.search);
-        const productId = urlParams.get('id');
-        
-        if (productId) {
-            const productData = await clientService.readProduct(productId);
-            if (productData) {
-                writeProductDetails(productData);  
-            } else {
-                console.error('No se encontraron datos para el producto');
-            }
-        } else {
-            console.error('No se encontró el ID del producto en la URL');
-        }
-    } catch (error) {
-        console.error('Error al obtener los detalles del producto:', error);
-    }
+const createCategorySection = (category, main) => {
+    const section = document.createElement('section');
+    section.classList.add('category');
+    section.innerHTML = `
+        <h2 class="category__name">Cargando...</h2>
+        <div class="category__carousel"></div>
+    `;
+    main.appendChild(section);
+    console.log(`Se creó dinámicamente la sección para la categoría "${category}".`);
+    return section;
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    getProductDetails(); 
+    renderProducts();
 });
 
 function imgErrorHTML(image) {
     image.onerror = "";
-    image.src = './img/default-img.png';  
+    image.src = './img/default-img.png'; 
     return true;
 }
